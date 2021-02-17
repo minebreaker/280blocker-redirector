@@ -42,4 +42,16 @@ test {
     useJUnitPlatform()
 }
 
+jar {
+    manifest {
+        attributes(
+                'Main-Class': 'rip.deadcode._280blocker_redirector.Main'
+        )
+    }
+
+    // Fat jar
+    from { configurations.compileClasspath.collect { it.isDirectory() ? it : zipTree(it) } }
+    exclude 'META-INF/*.RSA', 'META-INF/*.SF', 'META-INF/*.DSA'
+}
+
 task stage(dependsOn: ['build'])
