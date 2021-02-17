@@ -25,6 +25,7 @@ class Handler : AbstractHandler() {
 
         response.status = 307
         response.addHeader("Location", url)
+        response.addHeader("Cache-Control", "max-age=604800")
         response.addHeader(HttpHeaders.ACCESS_CONTROL_ALLOW_ORIGIN, "*")
         baseRequest.isHandled = true
     }
