@@ -2,10 +2,13 @@ package rip.deadcode._280blocker_redirector
 
 import com.google.api.client.http.GenericUrl
 import com.google.api.client.http.javanet.NetHttpTransport
+import com.google.common.io.CharStreams
 import com.google.common.net.HttpHeaders
 import org.eclipse.jetty.server.Request
 import org.eclipse.jetty.server.handler.AbstractHandler
 import org.slf4j.LoggerFactory
+import java.io.InputStreamReader
+import java.nio.charset.StandardCharsets
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 import javax.servlet.http.HttpServletRequest
@@ -54,7 +57,16 @@ class Handler : AbstractHandler() {
                 logger.info("404. Tries the previous month. Count: ${count}")
                 getUrl(date.minusMonths(1), count - 1)
             }
-            else -> throw RuntimeException("Unexpected response: ${response.headers}")
+            else -> throw RuntimeException(
+                "Unexpected response: ${
+                    CharStreams.toString(
+                        InputStreamReader(
+                            response.content,
+                            StandardCharsets.UTF_8
+                        )
+                    )
+                }"
+            )
         }
     }
 }
