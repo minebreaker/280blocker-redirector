@@ -1,0 +1,43 @@
+plugins {
+    id 'org.jetbrains.kotlin.jvm' version '1.4.30'
+}
+
+group 'org.example'
+version '1.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+    maven {
+        url = "https://dl.bintray.com/minebreaker/test"
+    }
+}
+
+dependencies {
+    implementation(
+            'org.jetbrains.kotlin:kotlin-stdlib',
+            'org.eclipse.jetty:jetty-server:9.4.30.v20200611',
+            'com.google.guava:guava:30.0-jre',
+            'com.google.code.findbugs:jsr305:3.0.2',
+//            'com.google.code.gson:gson:2.8.6',
+            'com.google.http-client:google-http-client:1.38.1',
+//            'com.google.mug:mug:4.8',
+//            'com.typesafe:config:1.4.1',
+            'org.slf4j:slf4j-api:1.7.30',
+            'org.slf4j:jul-to-slf4j:1.7.30', // Guava uses java.util.logging
+            'ch.qos.logback:logback-classic:1.2.3'
+    )
+//    apiOnly 'org.projectlombok:lombok:1.18.16'
+    testImplementation(
+            'org.junit.jupiter:junit-jupiter-api:5.7.0',
+            'com.google.truth:truth:1.1',
+            'com.google.truth.extensions:truth-java8-extension:1.1',
+            'org.mockito:mockito-core:3.5.15',
+            'rip.deadcode:izvestia:0.3',
+//            'com.google.jimfs:jimfs:1.1'
+    )
+    testRuntime 'org.junit.jupiter:junit-jupiter-engine:5.7.0'
+}
+
+test {
+    useJUnitPlatform()
+}
